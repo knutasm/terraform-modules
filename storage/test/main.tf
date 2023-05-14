@@ -1,3 +1,12 @@
+data "terraform_remote_state" "vnet" {
+  backend = "local"
+
+  config = {
+    path = "../../vnet/test/terraform.tfstate"
+  }
+}
+
+
 module "storage" {
   source               = "../"
   resource_group_name  = "rg-storage-test"
@@ -6,5 +15,6 @@ module "storage" {
   use_private_endpoint = true
   containers           = ["container1", "container2"]
   allowed_ips = [ "80.212.33.210" ]
-  vnet_remote_state_path = "../../vnet/test/terraform.tfstate"
+  private_endpoint_subnet_id = data.terraform_remote_state.vnet.outputs.snet.default
+  dns_zone_ids = [ data.terraform_remote_state.vnet.outputs.blob_dns_zone_id ]
 }

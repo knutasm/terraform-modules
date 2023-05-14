@@ -13,6 +13,11 @@ variable "use_private_endpoint" {
   type        = bool
 }
 
+variable "private_endpoint_subnet_id" {
+  description = "ID of the subnet to use for the private endpoint"
+  type        = string
+}
+
 variable "containers" {
   description = "List of container names to create in the storage account"
   type        = list(string)
@@ -28,8 +33,8 @@ variable "allowed_ips" {
   type        = list(string)
 }
 
-variable "vnet_remote_state_path" {
-  description = "Path to the vnet remote state file"
-  type        = string
+variable "dns_zone_ids" {
+  description = "List of DNS zone IDs to associate with the private endpoint"
+  type        = list(string)
 }
-  
+

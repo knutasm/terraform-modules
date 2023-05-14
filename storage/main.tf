@@ -26,21 +26,13 @@ resource "azurerm_storage_account" "storage" {
   }
 }
 
-data "terraform_remote_state" "vnet" {
-  backend = "local"
-
-  config = {
-    path = var.vnet_remote_state_path
-  }
-}
-
 resource "azurerm_private_endpoint" "name" {
   count = var.use_private_endpoint ? 1 : 0
 
   name                = "pe-${azurerm_storage_account.storage.name}"
   location            = azurerm_resource_group.this.location
   resource_group_name = azurerm_resource_group.this.name
-  subnet_id           = data.terraform_remote_state.vnet.outputs.snet.public
+  subnet_id           = var.private_endpoint_subnet_id #data.terraform_remote_state.vnet.outputs.snet.public
 
   private_service_connection {
     name                           = "private-endpoint-connection"
@@ -51,9 +43,9 @@ resource "azurerm_private_endpoint" "name" {
 
   private_dns_zone_group {
     name = "endpoint-dns-zone-group"
-    private_dns_zone_ids = [
-      data.terraform_remote_state.vnet.outputs.blob_dns_zone_id
-    ]
+    private_dns_zone_ids = var.dns_zone_ids
+
+    #     var.      data.terraform_remote_state.vnet.outputs.blob_dns_zone_id
   }
 }
 
