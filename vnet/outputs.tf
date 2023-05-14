@@ -14,3 +14,9 @@ output "subnet_ids" {
     for name, subnet in azurerm_subnet.this : name => subnet.id
   })
 }
+
+
+output "blob_dns_zone_id" {
+  value = azurerm_private_dns_zone.storage_blob.id
+}
+  

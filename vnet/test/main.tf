@@ -17,3 +17,7 @@ output "snet" {
 output "resource_group_name" {
   value = module.vnet.resource_group_name
 }
+
+output "blob_nds_zone_id" {
+  value = module.vnet.blob_dns_zone_id
+}
