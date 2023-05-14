@@ -30,7 +30,7 @@ data "terraform_remote_state" "vnet" {
   backend = "local"
 
   config = {
-    path = "../../vnet/test/terraform.tfstate"
+    path = var.vnet_remote_state_path
   }
 }
 
@@ -40,13 +40,20 @@ resource "azurerm_private_endpoint" "name" {
   name                = "pe-${azurerm_storage_account.storage.name}"
   location            = azurerm_resource_group.this.location
   resource_group_name = azurerm_resource_group.this.name
-  subnet_id           = data.terraform_remote_state.vnet.outputs.snet.value.public
+  subnet_id           = data.terraform_remote_state.vnet.outputs.snet.public
 
   private_service_connection {
     name                           = "private-endpoint-connection"
     private_connection_resource_id = azurerm_storage_account.storage.id
-    subresource_names              = [for container in var.containers : container]
+    subresource_names              = ["blob"]
     is_manual_connection           = false
+  }
+
+  private_dns_zone_group {
+    name = "endpoint-dns-zone-group"
+    private_dns_zone_ids = [
+      data.terraform_remote_state.vnet.outputs.blob_dns_zone_id
+    ]
   }
 }
 

@@ -27,3 +27,9 @@ variable "allowed_ips" {
   description = "List of IP addresses to allow access to the storage account"
   type        = list(string)
 }
+
+variable "vnet_remote_state_path" {
+  description = "Path to the vnet remote state file"
+  type        = string
+}
+  
