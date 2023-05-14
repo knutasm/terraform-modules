@@ -13,3 +13,7 @@ module "vnet" {
 output "snet" {
   value = module.vnet.subnet_ids
 }
+
+output "resource_group_name" {
+  value = module.vnet.resource_group_name
+}
