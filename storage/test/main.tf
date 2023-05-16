@@ -18,3 +18,13 @@ module "storage" {
   private_endpoint_subnet_id = data.terraform_remote_state.vnet.outputs.snet.default
   dns_zone_ids = [ data.terraform_remote_state.vnet.outputs.blob_dns_zone_id ]
 }
+
+output "storage_account_name" {
+  description = "The name of the resource"
+  value = module.storage.storage_account_name
+}
+  
+output "storage_account_id" {
+  description = "The ID of the resource"
+  value = module.storage.storage_account_id
+}
