@@ -13,5 +13,12 @@ variable "data_factory_name" {
   type = string
 }
 
+variable "managed_private_endoints" {
+  description = "Mapping of endpoint name to resource id"
+  type = map(map(string))
+}
 
-
+variable "azure_integration_runtime" {
+  description = "Integration runtime configuration"
+  type = map(string)
+}
