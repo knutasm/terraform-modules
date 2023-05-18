@@ -3,6 +3,12 @@ output "vnet_id" {
   value       = azurerm_virtual_network.this.id
 }
 
+output "vnet_name" {
+  description = "Name of the virtual network resource"
+  value       = azurerm_virtual_network.this.name
+}
+
+
 output "resource_group_name" {
   description = "Name of the resource group of the vnet"
   value = azurerm_resource_group.this.name
@@ -15,6 +21,9 @@ output "subnet_ids" {
   })
 }
 
+output "location" {
+  value = azurerm_resource_group.this.location
+}
 
 output "blob_dns_zone_id" {
   value = azurerm_private_dns_zone.storage_blob.id

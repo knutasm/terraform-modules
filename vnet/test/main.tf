@@ -21,3 +21,15 @@ output "resource_group_name" {
 output "blob_dns_zone_id" {
   value = module.vnet.blob_dns_zone_id
 }
+
+output "vnet_id" {
+  value = module.vnet.vnet_id
+}
+
+output "vnet_name" {
+  value = module.vnet.vnet_name
+}
+
+output "location" {
+  value = module.vnet.location
+}
