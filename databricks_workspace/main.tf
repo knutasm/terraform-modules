@@ -81,12 +81,3 @@ resource "azurerm_network_security_group" "this" {
   location            = var.vnet.location
   resource_group_name = var.vnet.resource_group_name
 }
-
-resource "azurerm_databricks_access_connector" "this" {
-  name                = "databricks-access-connector"
-  location            = azurerm_resource_group.databricks.location
-  resource_group_name = azurerm_resource_group.databricks.name
-  identity {
-    type = "SystemAssigned"
-  }
-}

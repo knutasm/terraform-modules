@@ -20,12 +20,12 @@ module "datbricks" {
   }
   subnets = {
     private = {
-      name              = "databricks-private"
-      address_prefixes  = ["192.168.2.0/24"]
+      name             = "databricks-private"
+      address_prefixes = ["192.168.2.0/24"]
     }
     public = {
-      name              = "databricks-public"
-      address_prefixes  = ["192.168.3.0/24"]
+      name             = "databricks-public"
+      address_prefixes = ["192.168.3.0/24"]
     }
   }
 }
@@ -33,7 +33,15 @@ module "datbricks" {
 output "databricks_workspace_id" {
   value = module.datbricks.databricks_workspace_id
 }
-  
+
 output "databricks_host" {
   value = module.datbricks.databricks_host
+}
+
+output "databricks_resource_group_name" {
+  value = module.datbricks.databricks_resource_group_name
+}
+
+output "databricks_location" {
+  value = module.datbricks.databricks_location
 }
